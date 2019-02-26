@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Marks.TabbedPage1"
+            >
+    
+  <!--Pages can be added as references or inline-->
+    <ContentPage Title="Count">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Picker Title="Mark" x:Name="GPick" HorizontalOptions="Center" Grid.Row="0" Grid.Column="0">
+                <Picker.Items>
+                    <x:String>1</x:String>
+                    <x:String>2</x:String>
+                    <x:String>3</x:String>
+                    <x:String>4</x:String>
+                    <x:String>5</x:String>
+                </Picker.Items>
+            </Picker>
+            <Entry Placeholder="Weight" HorizontalOptions="Center" Keyboard="Numeric" Grid.Row="0" Grid.Column="1" x:Name="WPick"/>
+            <Picker Title="Subject" Grid.Row="0" HorizontalOptions="FillAndExpand" Grid.Column="2" x:Name="SPick" />
+            <Button Text="Add" Grid.Row="0" Grid.Column="3" Clicked="AddMarkToList"/>
+            <ListView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" x:Name="AddedMarks" RowHeight="75" SeparatorVisibility="Default" SeparatorColor="Blue"  HasUnevenRows="True" HeightRequest="50">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout BackgroundColor="#eee" Orientation="Vertical">
+                                <Label Text="{Binding Grade}"/>
+                                <Label Text="{Binding Weight}"/>
+                                <Label Text="{Binding Subject}"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+        </Grid>
+    </ContentPage>
+    <ContentPage Title="Overview">
+        <StackLayout>
+            <ListView x:Name="AllMarks" RowHeight="75" SeparatorVisibility="Default" SeparatorColor="Blue"  HasUnevenRows="True" HeightRequest="50">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout BackgroundColor="#eee" Orientation="Vertical">
+                                <Label Text="{Binding Grade}"/>
+                                <Label Text="{Binding Weight}"/>
+                                <Label Text="{Binding Subject}"/>
+                                <Label Text="{Binding SubID}" IsVisible="False"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+
+    </ContentPage>
+    <ContentPage Title="Subjects">
+        <StackLayout>
+            <Label x:Name="test"></Label>
+        </StackLayout>
+    </ContentPage>
+</TabbedPage>

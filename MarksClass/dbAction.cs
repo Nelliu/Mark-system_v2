@@ -1,6 +1,7 @@
 ﻿using SQLite;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -95,36 +96,48 @@ namespace MarksClass
             }
         }
 
-        public Averages GetAverages(int subID)
+        public ObservableCollection<Averages> GetAverages()
         {
+            ObservableCollection<Averages> avers = new ObservableCollection<Averages>();
             List<Mark> Marks = QueryMarks().ToList();
             List <Subjects> sub= QuerySubjects().ToList();
-            double Average = 0;
-            int Grade = 0;
-            string subject = "";
-            
 
-            for (int i = 0; i < Marks.Count(); i++)
+            for (int i = 0; i < Marks.Count; i++)
             {
-                if(Marks[i].Subject == subID)
+                double Average = 0;
+                double Grade = 0;
+                string subject = "";
+                int subID = 0;
+
+                if (avers.Count != 0)
                 {
-                    Grade = Grade + (Marks[i].Grade * Marks[i].Weight);
-                    Average = Average + Marks[i].Weight;
-                }
-            }
-            for (int a = 0; a < sub.Count(); a++)
-            {
-                if (sub[a].SubjectID == subID)
-                {
-                    subject = sub[a].Subject;
-                    a = sub.Count();
+                    for (int a = 0; a < avers.Count(); a++)
+                    {
+                        if (avers[a].SubID == Marks[i].Subject)
+                        {
+                            avers[a].
+                        }
+                    }
                 }
                 else
                 {
-                    subject = "something went wrong";
+                    for (int a = 0; a < sub.Count; a++)
+                    {
+                        if (Marks[i].Subject == sub[a].SubjectID)
+                        {
+                            subject = sub[a].Subject;
+                            Average = (Marks[i].Grade * Marks[i].Weight) / Marks[i].Weight;
+                            subID = Marks[i].Subject;
+                            avers.Add(new Averages(Average, subject, subID));
+                            a = sub.Count;
+                        }
+                    }
                 }
+                
+
+                
             }
-            Averages avers = new Averages();
+            
             return avers;
         }
     }

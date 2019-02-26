@@ -6,20 +6,20 @@ namespace MarksClass
 {
     public class Averages
     {
-        public int Grade { get; set; }
         public double Average { get; set; }
         public string Subject { get; set; }
-
+        public int SubID { get; set; }
+        
 
        public Averages()
         {
 
         }
-        public Averages(int grade, double average, string subject)
+        public Averages(double average, string subject, int subID)
         {
-            Grade = grade;
             Average = average;
-            Subject = subject; 
+            Subject = subject;
+            SubID = subID;
         }
 
 

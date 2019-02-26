@@ -15,7 +15,7 @@ namespace Marks
     {
 
         dbAction Action = new dbAction();
-        List<Subjects> SubjectsX = new List<Subjects>();
+        ObservableCollection<Subjects> SubjectsX = new ObservableCollection<Subjects>();
         ObservableCollection<Mark> Marks = new ObservableCollection<Mark>(); // pro db
         ObservableCollection<GradeClass> Grades = new ObservableCollection<GradeClass>();
 
@@ -30,7 +30,7 @@ namespace Marks
 
         private void AtAppStart()
         {
-            SubjectsX = Action.QuerySubjects().ToList();
+            SubjectsX = new ObservableCollection<Subjects>(Action.QuerySubjects().ToList());
             foreach (Subjects b in SubjectsX)
             {
                 SPick.Items.Add(b.Subject);    
@@ -55,6 +55,7 @@ namespace Marks
 
             AddedMarks.ItemsSource = Grades;
 
+            
 
 
 

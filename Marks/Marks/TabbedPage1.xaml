@@ -53,8 +53,7 @@
                     <DataTemplate>
                         <ViewCell>
                             <StackLayout BackgroundColor="#eee" Orientation="Vertical">
-                                <Label Text="{Binding Grade}"/>
-                                <Label Text="{Binding Weight}"/>
+                                <Label Text="{Binding Average}"/>
                                 <Label Text="{Binding Subject}"/>
                                 <Label Text="{Binding SubID}" IsVisible="False"/>
                             </StackLayout>

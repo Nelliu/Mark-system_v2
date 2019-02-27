@@ -23,10 +23,10 @@ namespace MarksClass
             SubList.Add(English);
             SubList.Add(French);
 
-            //for (int i = 0; i < SubList.Count; i++)
-            //{
-            //    Insert(SubList[i]);
-            //}
+            for (int i = 0; i < SubList.Count; i++)
+            {
+                Insert(SubList[i]);
+            }
 
 
         }
@@ -82,6 +82,21 @@ namespace MarksClass
 
             
         }
+
+        public bool UpdateSubject(Subjects subj)
+        {
+            try
+            {
+                var db = new SQLiteConnection(path);
+                db.Update(subj);
+                return true;
+            }
+            catch(Exception)
+            {
+                return false;
+            }
+        }
+
         public bool DeleteMark(int id)
         {
             try
@@ -96,49 +111,45 @@ namespace MarksClass
             }
         }
 
-        public ObservableCollection<Averages> GetAverages()
+        public ObservableCollection<Subjects> GetAverages()
         {
-            ObservableCollection<Averages> avers = new ObservableCollection<Averages>();
+
+            ObservableCollection<Subjects> subject = new ObservableCollection<Subjects>();
             List<Mark> Marks = QueryMarks().ToList();
-            List <Subjects> sub= QuerySubjects().ToList();
+            ObservableCollection <Subjects> sub= new ObservableCollection<Subjects>(QuerySubjects());
 
-            for (int i = 0; i < Marks.Count; i++)
+            for (int i = 0; i < Marks.Count(); i++)
             {
-                double Average = 0;
-                double Grade = 0;
-                string subject = "";
-                int subID = 0;
-
-                if (avers.Count != 0)
+                for (int a = 0; a < sub.Count(); a++)
                 {
-                    for (int a = 0; a < avers.Count(); a++)
+                    if(Marks[i].Subject == sub[a].SubjectID)
                     {
-                        if (avers[a].SubID == Marks[i].Subject)
-                        {
-                            avers[a].
-                        }
+                        sub[a].Marks.Add(Marks[i].Grade);
+                        sub[a].Weights.Add(Marks[i].Weight);
+                        a = sub.Count();
+
                     }
                 }
-                else
-                {
-                    for (int a = 0; a < sub.Count; a++)
-                    {
-                        if (Marks[i].Subject == sub[a].SubjectID)
-                        {
-                            subject = sub[a].Subject;
-                            Average = (Marks[i].Grade * Marks[i].Weight) / Marks[i].Weight;
-                            subID = Marks[i].Subject;
-                            avers.Add(new Averages(Average, subject, subID));
-                            a = sub.Count;
-                        }
-                    }
-                }
-                
-
-                
             }
+            double upper = 0;
+            double downer = 0;
+            for (int i = 0; i < sub.Count ; i++)
+            {
+                for (int a = 0; a < Marks.Count; a++)
+                {
+                    upper = upper + (sub[i].Weights[a] * sub[i].Marks[a]);
+                    downer = downer + sub[i].Weights[a];
+                    sub[i].Average = upper / downer;
+                    UpdateSubject(sub[i]);
+                }
+                upper = 0;
+                downer = 0;
+            }
+
+            return sub;
+
+          
             
-            return avers;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SQLite;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,14 +7,22 @@ namespace MarksClass
 {
     public class Subjects
     {
-        public string Subject { get; set; }
+        [PrimaryKey]
         public int SubjectID { get; set; }
+        public string Subject { get; set; }
+       
+
+        public double Average { get; set; }
+        public List<double> Weights {get; set; }
+        public List<double> Marks { get; set; }
+
+
 
         public Subjects() { }
-        public Subjects(string a, int b)
+        public Subjects(string subject, int subjectID)
         {
-            Subject = a;
-            SubjectID = b;
+            Subject = subject;
+            SubjectID = subjectID;
         }
     }
 }

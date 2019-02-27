@@ -30,7 +30,7 @@ namespace Marks
 
         private void AtAppStart()
         {
-            SubjectsX = new ObservableCollection<Subjects>(Action.QuerySubjects().ToList());
+            SubjectsX = Action.GetAverages();
             foreach (Subjects b in SubjectsX)
             {
                 SPick.Items.Add(b.Subject);    
@@ -54,7 +54,8 @@ namespace Marks
             }
 
             AddedMarks.ItemsSource = Grades;
-
+            AllMarks.ItemsSource = SubjectsX;
+           
             
 
 
@@ -84,8 +85,8 @@ namespace Marks
 
             GradeClass Grade = new GradeClass(selectedGrade, weight, subject, subID);
             Grades.Add(Grade);
-           
-            
+
+            SubjectsX = Action.GetAverages();
             
 
         }
